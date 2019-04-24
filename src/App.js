@@ -131,9 +131,9 @@ class App extends Component {
                         </div>
                       <div className="col-sm-6">
                           <ul className="social-icon">
-                              <li><a href=""><i className="fa fa-facebook"></i></a></li>
-                              <li><a href=""><i className="fa fa-github"></i></a></li>
-                              <li><a href=""><i className="fa fa-linkedin"></i></a></li>
+                              <li><a href="https://www.facebook.com/tim.s.henriksen" target="_blank"><i className="fa fa-facebook"></i></a></li>
+                              <li><a href="https://github.com/timx0645" target="_blank"><i className="fa fa-github"></i></a></li>
+                              <li><a href="https://www.linkedin.com/in/tim-stroustrup-skov-henriksen-4b5098139/" target="_blank"><i className="fa fa-linkedin"></i></a></li>
                               <li><Link to={'/login'}><i className="fa fa-sign-in"></i></Link></li>
                           </ul>
                       </div>
