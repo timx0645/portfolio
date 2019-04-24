@@ -31,6 +31,7 @@ class Dashboard extends Component {
         db.collection("indhold").doc('om').set({
             bs: tekst
         });
+        this.props.geti();
     }
 
     add(e) {
@@ -117,6 +118,15 @@ class Dashboard extends Component {
                             <div class="section-title col-sm-12 wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.1s">
                                  <h5><Link to={'/'}>Forside</Link></h5>
                                  <h5><Link to={'/logout'}>Logud</Link></h5>
+                            </div>
+                            <div class="section-title col-sm-12 wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.1s">
+                                <h3>Ændre tekst</h3>
+                            </div>
+                            <div class="section-title col-sm-12 wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.1s">
+                                <form onSubmit={this.change}>
+                                    <textarea placeholder="Din beskrivelse" className="textboks" name="tekst"/>
+                                    <input type="submit" value="opdater" class="btn btn-fill btn-block disabled"/>
+                                </form>
                             </div>
                             <div class="section-title col-sm-12 wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.1s">
                                  <h3>Tilføj Projekt</h3>

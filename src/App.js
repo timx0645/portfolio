@@ -110,7 +110,7 @@ class App extends Component {
               />
               <Route exact path={'/dashboard'} 
               render={(props) => 
-              <Dashboard {...props} onEnter={this.requireAuth} projekter={this.state.projekter} get={this.getprojekter}/>
+              <Dashboard {...props} onEnter={this.requireAuth} projekter={this.state.projekter} get={this.getprojekter} geti={this.getindhold} indhold={this.state.indhold}/>
                 }
               />
               <Route exact path={'/logout'} 
