@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as firebase from 'firebase';
+
 var config = {
     apiKey: process.env.REACT_APP_API,
     authDomain: process.env.REACT_APP_AUTH,

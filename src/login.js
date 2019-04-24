@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import history from './history';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
+import {Link} from "react-router-dom";
+
 
 class Login extends Component {
     constructor(props) {
@@ -34,23 +36,22 @@ class Login extends Component {
       }
     render() { 
         return (
-            <div class="w3-container" id="container">
+            <div className="login-container" id="container">
             <h3>Login</h3>
-            <div class="w3-twothird">
+            <div className="w3-twothird">
                 <form onSubmit={this.login}>
                 <span id="error"></span>
                     <p>
-                        <span class="w3-quarter">Email:</span>
-                        <input type="text" name="Brugernavn" class="w3-twothird"/>
+                        <input type="text" name="Brugernavn" className="form-control" style={{color: '#495057'}} placeholder="Brugernavn"/>
                     </p> 
                     <br/>
                     <p>
-                        <span class="w3-quarter">Password:</span>
-                        <input type="text" name="Pass" class="w3-twothird"/>
+                        <input type="text" name="Pass" className="form-control"  style={{color: '#495057'}} placeholder="Kodeord"/>
                     </p> 
                     <br/>  
-                    <input type="submit" value="Login" class="w3-button w3-dark-grey"/>             
+                    <input type="submit" value="Login" className="btn btn-fill btn-block"/>             
                 </form>
+                <Link to={'/'}>TIlbage</Link>
             </div>
             </div>
         );

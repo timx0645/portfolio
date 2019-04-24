@@ -7,6 +7,7 @@ import Projekter from './projekter';
 import Login from './login';
 import Dashboard from './dashboard';
 import Projekt from './projekt';
+import Header from './header';
 
 
 class App extends Component {
@@ -14,31 +15,53 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      projekter: []
+      projekter: [],
+      indhold: ''
     }
     this.getprojekter = this.getprojekter.bind(this);
+    this.getindhold = this.getindhold.bind(this);
     this.requireAuth = this.requireAuth.bind(this);
     };
 
   componentDidMount() {
-   this.getprojekter()
+    this.getprojekter();
+    this.getindhold();
+  }
+  
+  getindhold() {
+    let db = firebase.firestore();
+    let test = db.collection("indhold").doc('om');
+    test.get()
+    .then(snapshot => {      
+      this.setState({
+        indhold: snapshot.data().bs
+      });
+    });
   }
 
   getprojekter() {
     let db = firebase.firestore();
     let test = db.collection("Projekter");
-    var query = test.doc('Stacky');
-    query.get()
-    .then(snap => {
-      let list = [];
-      snap.forEach(elm => {
-        list.push(elm.data())
-      });
+    test.get()
+    .then(snapshot => {
+        let projektliste = [];
+        snapshot.forEach(elm => {
+          let projektet = {};
+          projektet = {
+            "title": elm.id,
+            "beskrivelse": elm.data().beskrivelse,
+            "billede": elm.data().billede,
+            "github": elm.data().github,
+            "kategori": elm.data().kategori,
+            "url": elm.data().url,
+            "tags": elm.data().tags
+          }
+          projektliste.push(projektet)
+        })
       this.setState({
-        test: list 
-      })
-    })
-    .catch(err => console.log(err))
+        projekter: projektliste,
+      });
+    });
   }
 
   requireAuth() {
@@ -54,13 +77,25 @@ class App extends Component {
   }
 
   render() {
+    const loader = document.getElementById("loader");
+    if (this.state.indhold === '') {
+      loader.style.display = 'block';
+    } else {
+      loader.classList.add("animation");
+      setTimeout(() => {
+        loader.style.display = 'none';
+      }, 2000);
+    }
+
     return (
       <Router history={history}>
-      <Link to={'/login'}>Login</Link>
         <Switch>
               <Route exact path={'/'} 
               render={(props) => 
-              <Projekter {...props} Projekter={this.state.projekter} />
+                <React.Fragment>
+                  <Header {...props} indhold={this.state.indhold}/>
+                  <Projekter {...props} projekter={this.state.projekter}/>
+              </React.Fragment>
                 }
               />
               <Route exact path={'/projekt/:navn'} 
@@ -75,13 +110,40 @@ class App extends Component {
               />
               <Route exact path={'/dashboard'} 
               render={(props) => 
-              <Dashboard {...props} onEnter={this.requireAuth} getprojekter={this.getprojekter} projekter={this.state.projekter}/>
+              <Dashboard {...props} onEnter={this.requireAuth} projekter={this.state.projekter} get={this.getprojekter}/>
                 }
               />
               <Route exact path={'/logout'} 
               render={this.logout}
               />
         </Switch>
+        <footer className="mh-footer mh-footer-3 top-border">
+          <div className="container-fluid">
+            <div className="map-image image-bg col-sm-12">
+              <div className="container mt-30">
+                <div className="row">
+                  <div className="col-sm-12 wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.2s">
+                    <div className="row">
+                       <div className="col-sm-6">
+                           <div className="text-left text-xs-center">
+                              <p>Stroustrup Webdesign @ 2019</p>
+                            </div>
+                        </div>
+                      <div className="col-sm-6">
+                          <ul className="social-icon">
+                              <li><a href=""><i className="fa fa-facebook"></i></a></li>
+                              <li><a href=""><i className="fa fa-github"></i></a></li>
+                              <li><a href=""><i className="fa fa-linkedin"></i></a></li>
+                              <li><Link to={'/login'}><i className="fa fa-sign-in"></i></Link></li>
+                          </ul>
+                      </div>
+                     </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
       </Router>
     );
   }
