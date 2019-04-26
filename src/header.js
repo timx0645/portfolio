@@ -1,7 +1,13 @@
 import React, {Component} from 'react';
 
 class Header extends Component {
-    render() { 
+    render() {
+        let beskrivelse = [];
+        let b = String(this.props.indhold);
+        let bes = b.split('/n');
+        for (let i = 0; i < bes.length; i++) {
+            beskrivelse.push(<div>{bes[i]}</div>)
+        } 
         return (
             <div>
                 <div className="mh-home image-bg home-2-img" style={{backgroundImage: 'url(https://firebasestorage.googleapis.com/v0/b/portfolio-47741.appspot.com/o/workstation-405768_1920.jpg?alt=media&token=921619a0-b8e3-4990-a946-9d8ef19302db)'}}>
@@ -43,7 +49,7 @@ class Header extends Component {
                                 <h2>Om mig</h2>
                             </div>
                             <div class="col-sm-12 text-center section-title wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.2s" style={{visibility: 'visible'}}>
-                                <p>{this.props.indhold}</p>
+                                <p>{beskrivelse}</p>
                                 <a href="https://firebasestorage.googleapis.com/v0/b/portfolio-47741.appspot.com/o/CV.pdf?alt=media&token=8c443bbd-2136-4129-a386-110926b9f87b" target="_blank" class="btn btn-fill wow fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.4s" style={{visibility: 'visible'}}>Downlaod CV <i class="fa fa-download"></i></a>
                             </div>
                          </div>

@@ -32,8 +32,24 @@ class Projekter extends Component {
             for (let i = 0; i < arr.length; i++) {
                 tags.push(<div className="tag">{arr[i]}</div>)
             }
+            if (this.state.sort === '') {
+                list.push(
+                <div className="show-all grid-item col-md-4 col-sm-6 col-xs-12 user-interface plusplus">
+                <figure>
+                    <img src={elm.billede} alt="img"/>
+                    <figcaption className="fig-caption">
+                        <i className="fa fa-search"></i>
+                        <h5 className="title">{elm.title}</h5>
+                        <span className="sub-title">{kategori}</span>
+                        <span className="sub-tag sub-title">{tags}</span>
+                        <Link to={`/projekt/${elm.title}`}></Link>
+                    </figcaption>
+                </figure>
+            </div>
+            )
+            } else {
             list.push(
-                <div className={this.state.sort === elm.kategori || this.state.sort === '' ? 'show grid-item col-md-4 col-sm-6 col-xs-12 user-interface plusplus' : 'no-show grid-item col-md-4 col-sm-6 col-xs-12 user-interface plusplus'}>
+                <div className={this.state.sort === elm.kategori ? 'show grid-item col-md-4 col-sm-6 col-xs-12 user-interface plusplus' : 'no-show grid-item col-md-4 col-sm-6 col-xs-12 user-interface plusplus'}>
                     <figure>
                         <img src={elm.billede} alt="img"/>
                         <figcaption className="fig-caption">
@@ -46,6 +62,7 @@ class Projekter extends Component {
                     </figure>
                 </div>
             )
+            }
         });
         return (
           <div>

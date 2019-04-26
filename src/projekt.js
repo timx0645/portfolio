@@ -40,11 +40,18 @@ class Projekt extends Component {
                 loader.style.display = 'none';
             }, 1800);
         }
+        let beskrivelse = [];
+        let b = String(this.state.projekt.beskrivelse);
+        let bes = b.split('/n');
+        for (let i = 0; i < bes.length; i++) {
+            beskrivelse.push(<div>{bes[i]}</div>)
+        }
         let tags = [];
         let arr = this.state.tags;
         for (let i = 0; i < arr.length; i++) {
             tags.push(<div className="tag">{arr[i]}</div>)
         }
+        console.log(beskrivelse)        
         let kategori = '';
         let kat = this.state.projekt.kategori;
         if (kat === 'stroustrup') {kategori = 'fobindelse med Stroustrup Webdsign'} else if(kat === 'fobindelse med min uddannelses') {kategori = 'Uddannelsen'} else {kategori = 'min Fritid'}
@@ -60,10 +67,10 @@ class Projekt extends Component {
                                         <h3 className="wow fadeInUp cap">{this.state.title}</h3>
                                         <h5>Lavet i {kategori}</h5>
                                         <ul>
-                                            <li className={this.state.projekt.url === "no" ? "no" : "wow fadeInUp"}><i className="fa fa-code"></i><Link to={this.state.projekt.url}>Se live versionen</Link></li>
-                                            <li className={this.state.projekt.github === "no" ? "no" : "wow fadeInUp"}><i className="fa fa-github"></i><Link to={this.state.projekt.github}>Check koden ud på github</Link></li>
+                                            <li className={this.state.projekt.url === "no" ? "no" : "wow fadeInUp"}><i className="fa fa-code"></i><a target="_blank" href={this.state.projekt.url}>Se live versionen</a></li>
+                                            <li className={this.state.projekt.github === "no" ? "no" : "wow fadeInUp"}><i className="fa fa-github"></i><a target="_blank" href={this.state.projekt.github}>Check koden ud på github</a></li>
                                         </ul>
-                                        <p><strong>Beskrivelse: </strong>{this.state.projekt.beskrivelse}</p>
+                                        <p classNme="p-tag"><strong>Beskrivelse: </strong>{beskrivelse}</p>
                                         <h6>Tags</h6>
                                         <div className="tag-container">{tags}</div>
                                         <h6 className="tag-h6"><Link to={'/'}><i className="fa fa-caret-left"></i> Tilbage</Link></h6>                               
